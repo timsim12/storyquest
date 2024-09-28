@@ -1,23 +1,15 @@
-import BookCard from '../components/BookCard';
+import BookGrid from '../components/BookGrid';
 import Header from "../components/Header";
-import { booksArr } from '../data';
 import './../book.css'
-
-const books = booksArr;
 
 function Home() {
     return (
-        <>
-            <Header />
-            <div className="mt-[80px] justify-center rounded-[50px] p-[30px] m-auto font-fredoka">
-                <h1 className="text-[34px] mb-[34px] font-bold text-center text-yellow-500 drop-shadow-lg">My Books</h1>
-                <div className="container">
-                    {books.map((book, idx) => 
-                        <BookCard image={`/covers/${book.cover}`} title={book.title} />
-                    )}
-                </div>
+        <div className="font-fredoka tracking-widest">
+            <Header /> 
+            <div className="bg-white mt-[50px] mx-[10%] rounded-[14px] p-[40px]">
+                <BookGrid />
             </div>
-        </>
+        </div>
     )
 }
 

@@ -5,6 +5,9 @@ module.exports = {
     extend: {
         fontFamily: {
             fredoka: ['Fredoka']
+        },
+        gridTemplateColumns: {
+            'fit': 'repeat(auto-fit, minmax(240px, 1fr))'
         }
     },
   },
