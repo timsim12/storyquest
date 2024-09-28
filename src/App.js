@@ -21,7 +21,7 @@ function App() {
                     <Route path="Register" element={<Register />}></Route>
                     <Route path="Books" element={<Home />}></Route>
                     {books.map((book, idx) => 
-                        <Route path={removeSpaces(book.title)} element={<BookView title={book.title} text={book.text} />}></Route>
+                        <Route path={removeSpaces(book.title)} element={<BookView title={book.title} text={book.content} />}></Route>
                     )}
                 </Routes>
             </BrowserRouter>

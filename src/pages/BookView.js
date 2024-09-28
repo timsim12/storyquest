@@ -11,11 +11,6 @@ function BookView({title, text}) {
                 <div className="w-[50%]">
                     <body id="text">{text}</body>
                 </div>
-                {/* <script> */}
-                    {/* $( "text" ).on( "select", function() {
-                        alert( "Handler for `select` called." )
-                    } ); */}
-                {/* </script> */}
             </body>
         </>
     )
