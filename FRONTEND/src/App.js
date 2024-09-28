@@ -22,7 +22,7 @@ function App() {
                     <Route path="Register" element={<Register />}></Route>
                     <Route path="Books" element={<Home />}></Route>
                     {books.map((book, idx) => 
-                        <Route path={removeSpaces(book.title)} element={<BookView title={book.title} text={book.content} />}></Route>
+                        <Route path={removeSpaces(book.title)} element={<BookView title={book.title} author={book.author} cover={book.cover} content={book.content} />}></Route>
                     )}
                     <Route path="openai" element={<Openai />}></Route>
                 </Routes>
