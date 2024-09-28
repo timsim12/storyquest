@@ -26,7 +26,7 @@ const AuthDetails = () => {
             }).catch(error => console.log(error))
         }
     return (
-        <div>{authUser ? <><p>{`Signed In as ${authUser.email}`}</p><button onClick={userSignOut}>Sign Out</button></> : <p>Not Signed In!</p>} 
+        <div className="flex justify-center">{authUser ? <><p>{`Signed In as ${authUser.email}`}</p><button onClick={userSignOut} className="bg-red-400 hover:bg-red-300 rounded-[20px] transition-all duration-200 px-[12px]">Sign Out</button></> : <p>Not Signed In!</p>} 
         </div>
     )
 }
