@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
+
 function Header() {
     const [authUser, setAuthUser] = useState(null);
 
@@ -26,7 +27,7 @@ function Header() {
             <Link to="../" className="font-bold text-[36px] drop-shadow-lg flex">StoryQuest
                 <img src="star.png" className="w-[50px] drop-shadow-lg"></img>
             </Link>
-            {authUser ? <Link to="../Login" className="text-[20px] px-[34px] py-[10px] text-black bg-yellow-500 border-yellow-600 border-[4px] hover:bg-yellow-600 transition-all duration-200 rounded-[16px] drop-shadow-lg ml-auto">Welcome, {authUser.email}</Link> : <Link to="../Login" className="text-[20px] px-[34px] py-[10px] text-black bg-yellow-500 border-yellow-600 border-[4px] hover:bg-yellow-600 transition-all duration-200 rounded-[16px] drop-shadow-lg ml-auto">Log In</Link>}
+            {authUser ? <img src="images/menu-burger.png" className="text-[20px] px-[34px] py-[10px] text-black bg-yellow-500 border-yellow-600 border-[4px] hover:bg-yellow-600 transition-all duration-200 rounded-[16px] drop-shadow-lg ml-auto">Welcome, {authUser.email}</img> : <Link to="../Login" className="text-[20px] px-[34px] py-[10px] text-black bg-yellow-500 border-yellow-600 border-[4px] hover:bg-yellow-600 transition-all duration-200 rounded-[16px] drop-shadow-lg ml-auto">Log In</Link>}
             
         </div>
     )
