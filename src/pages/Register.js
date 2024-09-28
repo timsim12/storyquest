@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-// import Input from "../components/Input";
 import Header from "../components/Header";
 import { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import AuthDetails from "../components/AuthDetails";
 import Input from "../components/Input";
+//Import Firestore stuff
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 
 function Register() {
@@ -13,7 +14,10 @@ function Register() {
     const [password, setPassword] = useState('');
     const [pin, setPin] = useState('');
 
+    const db = getFirestore();
+
     const signUp = (e) => {
+
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email,password)
         .then((userCredential) => {
@@ -21,6 +25,12 @@ function Register() {
         }).catch((error) => {
             console.log(error);
         })
+        //Storing the email, password, and pin into firstore with ID as the email
+        setDoc(doc(db, "UserInfo", email), {
+            email: email,
+            password: password,
+            pin: pin
+          });
     }
 
     
