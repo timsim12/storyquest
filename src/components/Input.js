@@ -1,8 +1,7 @@
 function Input({ label, id, type }) {
     return (
         <>
-            <label for={id}>{label}</label>
-            <input type={type} id={label}></input>
+            <input type={type} id={label} placeholder={label} className="mb-[30px] bg-transparent outline-0 border-b-2 border-yellow-500 p-[10px] w-[80%]"></input>
         </>
     )
 }
