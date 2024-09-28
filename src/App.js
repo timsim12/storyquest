@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import { books } from "./data";
 import BookView from "./pages/BookView";
+import Openai from "./Openai";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     {books.map((book, idx) => 
                         <Route path={removeSpaces(book.title)} element={<BookView title={book.title} text={book.content} />}></Route>
                     )}
+                    <Route path="openai" element={<Openai />}></Route>
                 </Routes>
             </BrowserRouter>
         </>
