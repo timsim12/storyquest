@@ -20,9 +20,3 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
-
-.container {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    grid-gap: 1rem;
-}

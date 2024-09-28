@@ -1,6 +1,7 @@
 import book_1 from '../book/book-1.jpeg';
 import BookCard from '../components/BookCard';
 import Header from "../components/Header";
+import './../book/book.css'
 
 const books = [
     {image: book_1, title: "The Very Hungry Caterpillar"},
