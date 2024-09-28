@@ -16,7 +16,7 @@ function BookView({title, author, cover, content}) {
                     <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">{title}</h1>
                     <h1 className="mb-[24px]">{`by: ${author}`}</h1>
                 </div>
-                <img src={`/covers/${cover}`} alt={title} className="rounded-[20px] w-[90%] mx-auto mb-[24px]"/>
+                <img src={`/covers/${cover}`} alt={title} className="rounded-[20px] w-[60%] max-w-[400px] mx-auto mb-[24px]"/>
                 <body className="text-[20px]" onMouseUp={selectedText}>{content}</body>
                 <h1 className="mt-[48px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
             </div>

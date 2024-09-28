@@ -14,7 +14,7 @@ function BookGrid() {
 
             <div className="grid grid-cols-fit gap-[15px]">
                 {books.map((book, idx) => 
-                    <Link to={removeSpaces(book.title)}>
+                    <Link to={`../books/${removeSpaces(book.title)}`}>
                         <BookCard image={`/covers/${book.cover}`} title={book.title} author={book.author} />
                     </Link>
                 )}
