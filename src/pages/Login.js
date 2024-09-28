@@ -1,8 +1,26 @@
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Input from "../components/Input";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import AuthDetails from "../components/AuthDetails";
+import { useState } from "react";
+
 
 function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [pin, setPin] = useState('');
+
+    const signIn = (e) => {
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, email,password)
+        .then((userCredential) => {
+            console.log(userCredential);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
     return (
         <>
             <Header />
@@ -17,6 +35,7 @@ function Login() {
                     <p className="mr-[6px]">Don't have an account?</p>
                     <Link to="../Register" className="text-yellow-500 hover:opacity-50 transition-all duration-200">Register</Link>
                 </div>
+                <AuthDetails />
             </div>
         </>
     )

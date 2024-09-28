@@ -1,8 +1,30 @@
 import { Link } from "react-router-dom";
-import Input from "../components/Input";
+// import Input from "../components/Input";
 import Header from "../components/Header";
+import { useState } from "react";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import AuthDetails from "../components/AuthDetails";
+import Input from "../components/Input";
+
 
 function Register() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [pin, setPin] = useState('');
+
+    const signUp = (e) => {
+        e.preventDefault();
+        createUserWithEmailAndPassword(auth, email,password)
+        .then((userCredential) => {
+            console.log(userCredential);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
+    
+
     return (
         <>
             <Header />
@@ -18,6 +40,7 @@ function Register() {
                     <p className="mr-[6px]">Already have an account?</p>
                     <Link to="../Login" className="text-yellow-500 hover:opacity-50 transition-all duration-200">Login</Link>
                 </div>
+                <AuthDetails />
             </div>
         </>
     )
