@@ -1,7 +1,10 @@
 
 function BookCard({image, title}) {
     return (
-        <img src={image} width={100} height={100} alt="book 1 cover"/>
+        <div>
+            <img src={image} width={100} height={100} alt="book 1 cover"/>
+            <h3>{title}</h3>
+        </div>
     )
 }
 
