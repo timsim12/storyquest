@@ -1,15 +1,9 @@
-import book_1 from '../book/book-1.jpeg';
 import BookCard from '../components/BookCard';
 import Header from "../components/Header";
-import './../book/book.css'
+import { booksArr } from '../data';
+import './../book.css'
 
-const books = [
-    {image: book_1, title: "The Very Hungry Caterpillar"},
-    {image: book_1, title: "The Caterpillar"},
-    {image: book_1, title: "The Caterpillar"},
-    {image: book_1, title: "The Caterpillar"},
-    {image: book_1, title: "The Hungry Caterpillar"},
-]
+const books = booksArr;
 
 function Home() {
     return (
@@ -19,7 +13,7 @@ function Home() {
                 <h1 className="text-[34px] mb-[34px] font-bold text-center text-yellow-500 drop-shadow-lg">My Books</h1>
                 <div className="container">
                     {books.map((book, idx) => 
-                        <BookCard image={book.image} title={book.title} />
+                        <BookCard image={`/covers/${book.cover}`} title={book.title} />
                     )}
                 </div>
             </div>
