@@ -30,10 +30,10 @@ function Register() {
             <Header />
             <div className="bg-white max-w-[36%] min-w-[400px] mt-[80px] justify-center rounded-[50px] p-[30px] m-auto font-fredoka">
                 <h1 className="text-[34px] mb-[34px] text-[#5087D0]  font-bold text-center">Register</h1>
-                <form className="flex flex-col">
-                    <Input type="email" id="email" label="Email" />
-                    <Input type="password" id="password" label="Password" />
-                    <Input type="number" id="pin" label="Pin" />
+                <form className="flex flex-col" onSubmit={signUp}>
+                    <Input type="email" id="email" label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <Input type="password" id="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Input type="number" id="pin" label="Pin" value={pin} onChange={(e) => setPin(e.target.value)} />
                     <input type="submit" value="Register" className="p-[14px] hover:cursor-pointer rounded-[20px] bg-[#9DEEBD] mb-[30px] mt-[20px] hover:opacity-70 transition-all duration-200" />
                 </form>
                 <div className="flex justify-center">
