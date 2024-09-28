@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AuthDetails from "./AuthDetails";
 
 function Header() {
     return (
