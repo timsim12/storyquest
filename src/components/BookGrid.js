@@ -10,7 +10,7 @@ function BookGrid() {
 
     return (
         <>
-            <h1 className="text-[40px] mb-[34px] font-bold text-center text-[#5087D0] drop-shadow-lg">My Books</h1>
+            <h1 className="text-[40px] mb-[34px] font-bold text-left text-[#5087D0] drop-shadow-lg">My Books</h1>
 
             <div className="grid grid-cols-fit gap-[15px]">
                 {books.map((book, idx) => 
