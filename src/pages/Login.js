@@ -16,9 +16,18 @@ function Login() {
         signInWithEmailAndPassword(auth, email,password)
         .then((userCredential) => {
             console.log(userCredential);
+            window.location = "/Books";
         }).catch((error) => {
             console.log(error);
+            alert("Incorrect Email or Password");
         })
+
+
+    
+
+    }
+    const handleLogIn = () => {
+        window.location = "/Books";
     }
     return (
         <>
