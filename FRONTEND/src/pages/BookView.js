@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Header from "../components/Header";
 import { callOpenAIAPI } from '../api';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,10 @@ function BookView({ title, author, cover, content }) {
     const [errorMessage, setErrorMessage] = useState(null);
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState(null);
     const [quizLocked, setQuizLocked] = useState(false); // State to lock the quiz once done
+    const [selectedWord, setSelectedWord] = useState(null);
+    const [wordDefinition, setWordDefinition] = useState(null);
+    const [definitionPosition, setDefinitionPosition] = useState({ x: 0, y: 0 }); // Position for floating definition box
+    const containerRef = useRef(null);
 
     // Function to generate the quiz based on the book content
     const generateQuiz = async () => {
@@ -96,10 +100,72 @@ function BookView({ title, author, cover, content }) {
         }
     };
 
-    const selectedText = () => {
-        let selection = window.getSelection().toString();
-        if (selection !== "") {
-            console.log(selection);
+    // Function to handle clicking on a word to display definition
+    const handleWordClick = async (e) => {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const selectedText = range.toString().trim();
+
+            if (selectedText) {
+                // Extract the full word around the selection if only a part is selected
+                const fullWord = getFullWordAtSelection(range);
+                setSelectedWord(fullWord);
+                await fetchWordDefinition(fullWord);
+                // Set position for the definition box
+                setDefinitionPosition({
+                    x: e.pageX + 20, // Move the definition box 20 pixels to the right
+                    y: e.pageY - 50,
+                });
+            } else {
+                // If user clicked between words, clear selection and definition
+                setSelectedWord(null);
+                setWordDefinition(null);
+            }
+        }
+    };
+
+    // Helper function to get the full word at a selection
+    const getFullWordAtSelection = (range) => {
+        const node = range.startContainer;
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            const startOffset = range.startOffset;
+            const endOffset = range.endOffset;
+
+            // Find the start and end of the word
+            let wordStart = startOffset;
+            while (wordStart > 0 && /\w/.test(text[wordStart - 1])) {
+                wordStart--;
+            }
+
+            let wordEnd = endOffset;
+            while (wordEnd < text.length && /\w/.test(text[wordEnd])) {
+                wordEnd++;
+            }
+
+            return text.slice(wordStart, wordEnd);
+        }
+        return '';
+    };
+
+    // Function to fetch the definition of a selected word using OpenAI
+    const fetchWordDefinition = async (word) => {
+        // If the word is likely a name, skip definition lookup
+        if (/^[A-Z][a-z]*$/.test(word)) {
+            setWordDefinition("No definition found.");
+            return;
+        }
+
+        try {
+            const response = await callOpenAIAPI(
+                `Provide a simple and child-friendly definition for the word "${word}". The definition should be easy for a preschool to 1st-grade child to understand.`
+            );
+            const definition = response.choices[0].message.content.trim();
+            setWordDefinition(definition);
+        } catch (error) {
+            console.error('Error fetching word definition:', error);
+            setWordDefinition("An error occurred while fetching the definition.");
         }
     };
 
@@ -114,7 +180,7 @@ function BookView({ title, author, cover, content }) {
         });
 
     return (
-        <div className="font-fredoka tracking-widest">
+        <div className="font-fredoka tracking-widest" ref={containerRef} onMouseUp={handleWordClick}>
             <Header />
             <div className="bg-white mt-[20px] mx-[20%] rounded-[20px] p-[20px] font-fredoka tracking-widest">
                 <Link to="/Books" className="bg-red-400 p-[14px] rounded-[14px] mt-[14px] hover:bg-red-300 transition-all duration-200">Back</Link>
@@ -123,7 +189,24 @@ function BookView({ title, author, cover, content }) {
                     <h1 className="mb-[24px]">{`by: ${author}`}</h1>
                 </div>
                 <img src={`/covers/${cover}`} alt={title} className="rounded-[20px] w-[60%] max-w-[400px] mx-auto mb-[24px] border-8 border-yellow-500"/>                
-                <p className="text-[20px] text-center mb-[30px]" onMouseUp={selectedText}>{addLineBreak(content)}</p>
+                <p className="text-[20px] text-center mb-[30px]">{addLineBreak(content)}</p>
+
+                {selectedWord && wordDefinition && (
+                    <div
+                        className="floating-definition-box p-[10px] bg-yellow-100 rounded shadow-lg"
+                        style={{
+                            position: "absolute",
+                            left: definitionPosition.x,
+                            top: definitionPosition.y,
+                            maxWidth: "300px",
+                            zIndex: 1000,
+                        }}
+                    >
+                        <strong>Word: </strong>{selectedWord} <br />
+                        <strong>Definition: </strong>{wordDefinition}
+                    </div>
+                )}
+
                 <button
                     onClick={generateQuiz}
                     className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] ml-[10%] hover:bg-blue-600"
