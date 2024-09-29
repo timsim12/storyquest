@@ -1,14 +1,18 @@
 import Header from "../components/Header";
 import StarMeter from "../components/StarMeter";
-import { books } from "../data";
+import CreateGoal from "../components/CreateGoal";
+import CancelButton from "../components/CancelButton";
+import { books } from "../data";    // replace with fetch from database
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 function ParentCorner() {
-    const removeSpaces=(text)=> {
+    const removeSpaces = (text) => {
         let noSpace = text.replace(/\s+/g, '-');
         return noSpace
     }
 
+    // replace with fetch from database
     const stars = 10;
     const goals = [
         { task: "5 pieces of candy", stars: 4 },
@@ -16,27 +20,30 @@ function ParentCorner() {
         { task: "go to the beach", stars: 11 }
     ];
 
-    // const completedGoals=()=> {
-    //     let stars = 10;
-    //     let goals = [
-    //         { task: "5 pieces of candy", stars: 4 },
-    //         { task: "new toy", stars: 9 },
-    //         { task: "go to the beach", stars: 11 }
-    //     ];
-    //     var completedGoals = []
-    //     for (let goal of goals) {
-    //         if (stars >= goal.stars) {
-    //             completedGoals.push({ task: goal.task, stars: goal.stars});
-    //         }
-    //     }
-    //     return completedGoals;
-    // }
+
+    const [creatingGoal, setGoalState] = useState(false);
+    const createGoal = () => {
+        if (setGoalState != true) {
+            setGoalState(true);
+        } else {
+            // save to database
+        }
+    }
+
+    const cancelGoal = () => {
+        setGoalState(false);
+    }
 
     return (
         <div className="font-fredoka tracking-widest">
             <Header />
             <div className="bg-white mt-[20px] mx-[10%] rounded-[20px] p-[20px] px-[60px]">
-                <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg mb-[24px]">Your child's progress</h1>
+                <div className="flex">
+                    <h1 className="flex-1 text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg mb-[24px]">Your child's progress</h1>
+                    <Link to="../Parent-Settings">
+                        <img src="/images/settings.png" className="w-[34px] h-fit mt-[10px]"></img>
+                    </Link>
+                </div>
                 <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Goals</h1>
                 <div className="grid grid-cols-fit gap-[15px]">
                     {goals.map((goal, idx) => 
@@ -46,8 +53,14 @@ function ParentCorner() {
                         </div>
                     )}
                 </div>
-                <div className="pt-[14px] pb-[14px] mt-[24px] mb-[24px]">
-                    <Link to="/Books" className="bg-yellow-400 p-[14px] rounded-[14px] hover:bg-yellow-600 transition-all duration-200">Add goal</Link>
+                <CreateGoal isPresented={creatingGoal} />
+                <div className="flex pt-[14px] pb-[14px] mt-[24px] mb-[24px]">
+                    <button onClick={createGoal} className="bg-[#9DEEBD] p-[14px] rounded-[14px] hover:bg-[#6eb98c] transition-all duration-200">
+                        Add goal
+                    </button>
+                    <button onClick={cancelGoal}>
+                        <CancelButton isPresented={creatingGoal} />
+                    </button>
                 </div>
                 <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Recently Read</h1>
                 <div>
@@ -65,7 +78,6 @@ function ParentCorner() {
                         </Link>
                     )}
                 </div>
-                <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Completed Goals</h1>
             </div>
         </div>
     )

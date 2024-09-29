@@ -1,7 +1,7 @@
 import StarImage from "./StarImage";
 
 function StarMeter({collected, total}) {
-    const goalColor=()=> {
+    const goalColor = () => {
         if (collected >= total) {
             return "text-green-600";
         }
