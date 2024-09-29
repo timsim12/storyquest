@@ -42,8 +42,8 @@ function Header() {
     return (
         <>
             <div className="relative flex bg-[#5087D0] font-fredoka items-center px-[10%] py-[12px] text-yellow-500 tracking-widest">
-                <Link to="../" className="font-bold text-[36px] drop-shadow-lg flex">StoryQuest
-                    <img src="../images/star.png" className="w-[50px] drop-shadow-lg"></img>
+                <Link to="../" className="font-bold text-[36px] drop-shadow-lg flex hover:scale-[1.03] transition-all duration-200">StoryQuest
+                    <img src="../images/star.png" className="w-[50px] drop-shadow-lg hover:rotate-[-4deg]"></img>
                 </Link>
                 {authUser ? 
 
