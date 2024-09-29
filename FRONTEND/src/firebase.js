@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,5 +22,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-export { app, analytics, auth };
+const getDocumentData = async (documentId) => {
+  try {
+    const docRef = doc(db, "UserInfo", documentId);
+
+    // Get the document snapshot
+    const docSnap = await getDoc(docRef);
+
+    // Check if the document exists and log the data
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      console.log("Document data:", data);
+      return data;
+    } else {
+      console.log("No such document!");
+    }
+  } catch (error) {
+    console.error("Error getting document:", error);
+  }
+};
+
+export { app, analytics, auth, getDocumentData};

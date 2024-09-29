@@ -42,9 +42,8 @@ function Register() {
             childName: childName,
             pin: pin,
             stars: 0, 
-            goals: "",
-            completedGoals: "",
-            booksRead: {title: "",time: 0, score: -1}
+            goals: [""],
+            booksRead: [{title: "",time: 0, score: -1}]
             
         });
         // signOut(auth);
@@ -57,7 +56,7 @@ function Register() {
             window.location = "/Login";
           } else {
             console.log("No user is signed in.");
-          }
+        }
     }
 
     
