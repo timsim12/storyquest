@@ -7,12 +7,16 @@ import AuthDetails from "../components/AuthDetails";
 import Input from "../components/Input";
 //Import Firestore stuff
 import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getAuth, signOut } from 'firebase/auth';
 
 
 function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [pin, setPin] = useState('');
+
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     const db = getFirestore();
 
@@ -23,7 +27,10 @@ function Register() {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential);
+            signOut(auth);
+            window.location = "/Login";
         }).catch((error) => {
+            alert(error);
             console.log(error);
         })
         //Storing the email, password, and pin into firstore with ID as the email
@@ -37,7 +44,12 @@ function Register() {
     }
 
     const handleSubmit = () => {
-        window.location = "/Login"
+        if (user) {
+            //Checks if user is signed in
+            window.location = "/Login";
+          } else {
+            console.log("No user is signed in.");
+          }
     }
 
     

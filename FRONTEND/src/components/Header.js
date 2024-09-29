@@ -47,11 +47,11 @@ function Header() {
                 </Link>
                 {authUser ? 
 
-                <img ref={imgRef} onClick={()=>setOpen(!open)}src="images/menu-burger.png" className=" cursor-pointer w-[44px] hover:bg-[#406ca7] transition-all duration-200 rounded-[12px] drop-shadow-lg ml-auto"></img> 
+                <img ref={imgRef} onClick={()=>setOpen(!open)}src="images/menu-burger.png" className=" cursor-pointer w-[52px] hover:bg-[#406ca7] transition-all duration-200 rounded-[12px] drop-shadow-lg ml-auto"></img> 
                 : <Link to="../Login" className="text-[20px] px-[34px] py-[10px] text-black bg-yellow-500 border-yellow-600 border-[4px] hover:bg-yellow-600 transition-all duration-200 rounded-[16px] drop-shadow-lg ml-auto">Log In</Link>}
             </div>
             {open && (
-                <div className="absolute right-0 bg-white p-4 w-52 shadow-lg mr-[10%]">
+                <div className="absolute right-0 bg-[#adf350] p-4 w-52 shadow-lg mr-[10%]">
                     <ul>
                         {Menu.map((menu) => (
                             <li ref={menuRef} onClick={() => {
