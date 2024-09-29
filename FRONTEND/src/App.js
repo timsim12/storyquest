@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import { books } from "./data";
 import BookView from "./pages/BookView";
 import Openai from "./Openai";
+import ParentCorner from "./pages/ParentCorner";
 import ParentSettings from "./pages/ParentSettings";
 
 
@@ -26,6 +27,7 @@ function App() {
                     {books.map((book, idx) => 
                         <Route path={`/books/${removeSpaces(book.title)}`} element={<BookView title={book.title} author={book.author} cover={book.cover} content={book.content} />}></Route>
                     )}
+                    <Route path="Parent-Corner" element={<ParentCorner />}></Route>
                     <Route path="Parent-Settings" element={<ParentSettings />}></Route>
                     <Route path="openai" element={<Openai />}></Route>
                 </Routes>
