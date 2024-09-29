@@ -194,12 +194,16 @@ function BookView({ title, author, cover, content }) {
             const unsubscribe = onAuthStateChanged(auth, (user) => {
                 if (user) {
                     setQuiz(<>
-                            <button
-                                onClick={generateQuiz}
-                                className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] ml-[10%] hover:bg-blue-600"
-                            >
-                                Finished Reading
-                            </button>
+                            <div className="flex justify-center mt-[20px]">
+                                <button
+                                    onClick={generateQuiz}
+                                    className="bg-blue-500 text-white p-[10px] rounded-[14px] hover:bg-blue-600"
+                                    disabled={finishedReadingClicked} // Disable after clicking once
+                                >
+                                    Finished Reading
+                                </button>
+                            </div>
+
                             <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
                         </>
                     );
@@ -240,17 +244,6 @@ function BookView({ title, author, cover, content }) {
                     </div>
                 )}
 
-                <div className="flex justify-center mt-[20px]">
-                    <button
-                        onClick={generateQuiz}
-                        className="bg-blue-500 text-white p-[10px] rounded-[14px] hover:bg-blue-600"
-                        disabled={finishedReadingClicked} // Disable after clicking once
-                    >
-                        Finished Reading
-                    </button>
-                </div>
-
-                <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
                 {quiz}
 
                 {loading && <p>Loading quiz...</p>}
