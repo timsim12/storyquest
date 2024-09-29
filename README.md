@@ -1,70 +1,20 @@
-# Getting Started with Create React App
+## Inspiration
+Learning isn’t easy, and with the increasing distractions of online games and videos, it can be difficult to ensure that kids are learning the education that they need. Some common problems that we noted were that it is easy for children to become distracted when they see learning as “boring.” In addition, it is also often difficult for parents to be involved in children’s independent learning progress. Our app tackles both of these problems through incentivizing learning through a reward system, while also giving parents access to their children’s progress and goals.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What it does
+StoryQuest is a web application designed to enrich children's learning experiences in literature through a book catalog of interactive children's stories and a child-friendly design. It allows parents to create an account and establish reading goals for their child in the form of stars and custom rewards. While reading, the child can highlight challenging words to view their definitions, as well as complete a multiple-choice question at the end of each story to earn stars for their goal. Parents can view their child's progress and statistics in a separate parent portal and set future goals and rewards to keep motivating their child.
 
-## Available Scripts
+## How we built it
+StoryQuest was built using **React.js** and **TailwindCSS** for the front end, **Google Firebase** for the back end, and **Express.js** for managing the routing between both. To customize their child's learning experiences, parents can create an account with an email and password. This data is stored in the Firebase database, alongside the data for the child's stars, reading progress, and goals. When the child reads a short story, the definitions, multiple-choice questions, and responses are generated and handled through customized calls to the **OpenAI API**.
 
-In the project directory, you can run:
+## Challenges we ran into
+A challenge that we overcame was using OpenAI’s API. Using .env files in both the frontend and backend, we were able to connect the API to the backend port and send the data to the frontend which was presented on the BookView webpage. Connecting the API with both backend and frontend took quite a while but we were eventually able to overcome that challenge and present a nice result. Another challenge that we faced was editing the data in firestore. It was quite difficult to manage the data but again we were able to overcome that challenge. 
 
-### `npm start`
+## Accomplishments that we're proud of
+Our team is proud of our front end design which creates a very child-friendly environment for little ones to learn from. We are also proud of our use of AI to engage with the user and assist them in need and to test their overall understanding of the books they are reading. We are also proud to offer parental controls so that the parent is able to see and reward their child for reading. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## What we learned
+Our team learned about the javascript framework called React.js. Most of us had minimal experience with react.js or no experience at all. This project helped us learn the basics of React so that we can implement the framework in future projects easier. We also learned how to implement OpenAI’s API calls into the project to generate and handle definitions and also generate multiple-choice questions for child understanding. Lastly, we’ve learned how to store and retrieve data, manage user authentication, and leverage Firebase from this project.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What's next for StoryQuest
+Our next plans for StoryQuest involve broadening its reach to provide any parent in need of a great literature learning experience for their kids. In the future, we are planning to implement greater functionality of the parents' involvement in setting goals and rewards for the child. We are also going to be integrating easy-to-navigate pages for parents to view their child’s progress and also edit incentives and goals to motivate the child. Additionally we are looking to expand our database of children’s books so that the child has more reading options.
