@@ -20,7 +20,7 @@ function Register() {
     const signUp = (e) => {
 
         e.preventDefault();
-        createUserWithEmailAndPassword(auth, email,password)
+        createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential);
         }).catch((error) => {
