@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 // Initialize OpenAI API client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
 // Define a route to handle API requests from the frontend
@@ -22,8 +22,11 @@ app.post('/api/openai', async (req, res) => {
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 100,
+      messages: [
+        { role: 'system', content: 'You are an assistant designed to help young children from preschool to 1st grade learn and understand new information. Use simple language, short sentences, and a friendly, encouraging tone. Summarize text in a way that is easy for young children to understand, and create multiple choice questions that are fun, clear, and appropriate for their learning level. Always be supportive and enthusiastic, as if you are their teacher or learning buddy.' },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 150,
     });
 
     // Send the API response back to the frontend
