@@ -169,7 +169,7 @@ function BookView({ title, author, cover, content, stars }) {
 
         try {
             const response = await callOpenAIAPI(
-                `Provide a simple and child-friendly definition for the word "${word}". The definition should be easy for a preschool to 1st-grade child to understand.`
+                `Provide a simple and child-friendly definition for the word "${word}". The definition should be easy for a preschool to 1st-grade child to understand. Also make sure its still just a definition, don't overly make it kid friendly. Just give a very simple definition. Don't ask questions or engage with the reader in the definition, just define the word`
             );
             const definition = response.choices[0].message.content.trim();
             setWordDefinition(definition);
@@ -191,6 +191,7 @@ function BookView({ title, author, cover, content, stars }) {
 
     const auth = getAuth();
     const db = getFirestore();
+    
 
     const [quiz, setQuiz] = useState(null);
 
