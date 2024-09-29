@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import StarImage from "../components/StarImage";
+import StarMeter from "../components/StarMeter";
 import { books } from "../data";
 import { Link } from "react-router-dom";
 
@@ -9,30 +9,46 @@ function ParentCorner() {
         return noSpace
     }
 
-    const completedGoals=()=> {
-        let stars = 10;
-        let goals = {"5 pieces of candy" : 4, "new toy" : 9, "beach" : 11};
-        let completedGoals = []
-        for (const [key, value] of Object.entries(goals)) {
-            if (stars >= value) {
-                completedGoals.push(key)
-            }
-        }
-        return completedGoals;
-    }
+    const stars = 10;
+    const goals = [
+        { task: "5 pieces of candy", stars: 4 },
+        { task: "new toy", stars: 9 },
+        { task: "go to the beach", stars: 11 }
+    ];
+
+    // const completedGoals=()=> {
+    //     let stars = 10;
+    //     let goals = [
+    //         { task: "5 pieces of candy", stars: 4 },
+    //         { task: "new toy", stars: 9 },
+    //         { task: "go to the beach", stars: 11 }
+    //     ];
+    //     var completedGoals = []
+    //     for (let goal of goals) {
+    //         if (stars >= goal.stars) {
+    //             completedGoals.push({ task: goal.task, stars: goal.stars});
+    //         }
+    //     }
+    //     return completedGoals;
+    // }
 
     return (
         <div className="font-fredoka tracking-widest">
             <Header />
             <div className="bg-white mt-[20px] mx-[10%] rounded-[20px] p-[20px] px-[60px]">
                 <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg mb-[24px]">Your child's progress</h1>
-                <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Completed Goals</h1>
-                {completedGoals().map((goal, idx) => 
-                    <div className="flex">
-                        <StarImage />
-                        <p className="text-[18px] font-semibold mb-[24px] ml-[24px]">{goal}</p>  
-                    </div>
-                )}
+                <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Goals</h1>
+                <div className="grid grid-cols-fit gap-[15px]">
+                    {goals.map((goal, idx) => 
+                        <div className="flex">
+                            <StarMeter collected={stars} total={goal.stars} />
+                            <p className="text-[18px] font-semibold ml-[24px] mt-[9px]">{goal.task}</p>  
+                        </div>
+                    )}
+                </div>
+                <div className="pt-[14px] pb-[14px] mt-[24px] mb-[24px]">
+                    <Link to="/Books" className="bg-yellow-400 p-[14px] rounded-[14px] hover:bg-yellow-600 transition-all duration-200">Add goal</Link>
+                </div>
                 <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Recently Read</h1>
                 <div>
                     {books.map((book, idx) => 

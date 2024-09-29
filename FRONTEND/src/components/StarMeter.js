@@ -9,7 +9,7 @@ function StarMeter({collected, total}) {
     }
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center w-[136px]">
             <div className="flex items-center">
                 <p className={goalColor()}>
                 <p className="font-bold">{collected}</p>
