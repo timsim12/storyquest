@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import StarMeter from "../components/StarMeter";
 import { books } from "../data";
 import { Link } from "react-router-dom";
 
@@ -13,8 +14,13 @@ function ParentCorner() {
             <Header />
             <div className="bg-white mt-[20px] mx-[10%] rounded-[20px] p-[20px] px-[60px]">
                 <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg mb-[24px]">Your child's progress</h1>
+                <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Goal Progress</h1>
+                <div className="flex">
+                    <p className="font-semibold text-[#5087D0] mb-[24px]">5 pieces of candy</p>
+                    <StarMeter collected={11} total={10} />
+                </div>
                 <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Recently Read</h1>
-                <div className="max-w-[100%]">
+                <div>
                 {books.map((book, idx) => 
                     <Link to={`../books/${removeSpaces(book.title)}`}>
                         <div className="capitalize transition-all duration-200 text-center p-[20px] ">
@@ -29,7 +35,6 @@ function ParentCorner() {
                     </Link>
                 )}
                 </div>
-                <h1 className="text-[22px] font-bold text-left text-[#5087D0] mb-[24px]">Completed Goals</h1>
             </div>
         </div>
     )

@@ -1,4 +1,5 @@
 import StarImage from "./StarImage";
+import StarMeter from "./StarMeter";
 
 function StarGoals() {
     return (
@@ -18,15 +19,7 @@ function StarGoals() {
                     </div>
                     <div className="flex items-center mx-auto">
                         <p>Current Goal:&nbsp;</p>
-                        <div className="flex items-center">
-                            <p className="text-red-700 font-bold">5</p>
-                            <StarImage />
-                        </div>
-                        <p className="text-[30px]">&nbsp;/&nbsp;</p>
-                        <div className="flex items-center">
-                            <p className="text-green-600 font-bold">10</p>
-                            <StarImage />
-                        </div>
+                        <StarMeter collected={5} total={10} />
                     </div>
                 </div>
             </div>
