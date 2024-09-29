@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -44,4 +45,18 @@ const getDocumentData = async (documentId) => {
   }
 };
 
-export { app, analytics, auth, getDocumentData};
+const updateUserField = async (documentId, updatedData) => {
+  try {
+    // Reference the document in the "UserInfo" collection
+    const docRef = doc(db, "UserInfo", documentId);
+
+    // Update the field with the new data
+    await updateDoc(docRef, updatedData);
+
+    console.log("Document successfully updated!");
+  } catch (error) {
+    console.error("Error updating document: ", error);
+  }
+};
+
+export { app, analytics, auth, getDocumentData, updateUserField};
