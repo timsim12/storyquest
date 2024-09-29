@@ -14,6 +14,8 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [pin, setPin] = useState('');
+    const [childName, setChildName] = useState('');
+    
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -37,7 +39,13 @@ function Register() {
         setDoc(doc(db, "UserInfo", email), {
             email: email,
             password: password,
-            pin: pin
+            childName: childName,
+            pin: pin,
+            stars: 0, 
+            goals: "",
+            completedGoals: "",
+            booksRead: {title: "",time: 0, score: -1}
+            
         });
         // signOut(auth);
         // Navigate("/login");
@@ -62,6 +70,7 @@ function Register() {
                 <form className="flex flex-col" onSubmit={signUp}>
                     <Input type="email" id="email" label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <Input type="password" id="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Input type="text" id="childName" label="ChildName" value={childName} onChange={(e) => setChildName(e.target.value)} />
                     <Input type="number" id="pin" label="Pin" value={pin} onChange={(e) => setPin(e.target.value)} />
                     <input type="submit" value="Register" onClick={handleSubmit} className="p-[14px] hover:cursor-pointer rounded-[20px] bg-[#9DEEBD] mb-[30px] mt-[20px] hover:bg-[#6eb98c] transition-all duration-200 text-[18px]" />
                 </form>
