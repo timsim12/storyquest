@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import StarMeter from "../components/StarMeter";
 import CreateGoal from "../components/CreateGoal";
 import CancelButton from "../components/CancelButton";
+import StarImage from "../components/StarImage";
 import { books } from "../data";    // replace with fetch from database
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
@@ -72,6 +73,11 @@ function ParentCorner() {
                                     <div className="flex-1 text-left ml-[20px]">
                                         <h3 className="text-[20px] font-bold mb-[20px]">{book.title}</h3>
                                         <h1>{`by: ${book.author}`}</h1>
+                                        <div className="flex mt-[10px]">
+                                            {Array.from({ length: book.stars}, (_, index) => (
+                                                <StarImage className="w-[8px]" />
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
