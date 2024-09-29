@@ -26,7 +26,7 @@ function BookView({ title, author, cover, content }) {
 
         try {
             const response = await callOpenAIAPI(
-                `Please provide three summary options for the following text, labeled A, B, and C. Make sure one of them is the best summary, and label it as "(best summary)". Each summary should be a maximum of 1-2 sentences or 15 words. Make sure each summary is significantly different, highlighting unique aspects or different interpretations of the text. For example, one summary could focus on the actions of a character, another on the moral or outcome, and another on the problem or conflict. The text is: "${content}".`
+                `Please provide three summary options for the following text, labeled A, B, and C. Make sure one of them is the correct summary, and label it as "(best summary)". The other two summaries should be incorrect and introduce elements or characters that were not part of the story. Each summary should be a maximum of 1-2 sentences or 15 words. Ensure that each incorrect summary is obviously wrong and introduces incorrect details. The summaries should be easy to understand and suitable for preschool to 1st-grade children. The text is: "${content}".`
             );
             const { content: quizContent } = response.choices[0].message;
 
@@ -95,19 +95,19 @@ function BookView({ title, author, cover, content }) {
 
     const selectedText = () => {
         let selection = window.getSelection().toString();
-        if (selection != "") {
+        if (selection !== "") {
             console.log(selection);
         }
-    }
+    };
 
     const addLineBreak = (string) =>
-        string.split('\n').map((subStr) => {
-          return (
-            <>
-              {subStr}
-              <br />
-            </>
-          );
+        string.split('\n').map((subStr, index) => {
+            return (
+                <React.Fragment key={index}>
+                    {subStr}
+                    <br />
+                </React.Fragment>
+            );
         });
 
     return (
