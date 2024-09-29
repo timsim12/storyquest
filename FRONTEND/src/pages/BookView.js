@@ -26,7 +26,9 @@ function BookView({ title, author, cover, content }) {
 
         try {
             const response = await callOpenAIAPI(
-                `Please provide three summary options for the following text, labeled A, B, and C. Make sure one of them is the correct summary, and label it as "(best summary)". The other two summaries should be incorrect and introduce elements or characters that were not part of the story. Each summary should be a maximum of 1-2 sentences or 15 words. Ensure that each incorrect summary is obviously wrong and introduces incorrect details. The summaries should be easy to understand and suitable for preschool to 1st-grade children. The text is: "${content}".`
+                `Please provide three summary options for the following text, labeled A, B, and C. Make sure one of them is the correct summary, and clearly label it as "(best summary)". The other two summaries should be incorrect and introduce elements or characters that were not part of the story. Each summary should be a maximum of 1-2 sentences or 15 words. 
+                Important: Only one summary should be true and clearly marked as "(best summary)". The other two must be inaccurate.
+                The summaries should be easy to understand and suitable for preschool to 1st-grade children. The text is: "${content}".`
             );
             const { content: quizContent } = response.choices[0].message;
 
@@ -52,8 +54,9 @@ function BookView({ title, author, cover, content }) {
                 return cleanedChoice;
             }).slice(0, 3); // Ensure we only use the first three choices
 
-            if (correctIndex === null) {
-                throw new Error("Unable to identify the correct answer in the response");
+            // Perform validation to ensure the correct answer is marked accurately
+            if (correctIndex === null || correctIndex < 0 || correctIndex >= cleanedChoices.length) {
+                throw new Error("Unable to identify the correct answer in the response. Please check the summaries.");
             }
 
             // Set the state with the cleaned choices and the correct index
