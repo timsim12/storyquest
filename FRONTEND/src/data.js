@@ -13,7 +13,7 @@ export const books = [
         content: "I like to read.\nWho can I read to?\n\nMy sister is asleep.\nWho can I read to?\n\nMy mother and grandmother are busy.\nWho can I read to?\n\nMy father and grandfather are busy.\nWho can I read to?\n\nI can read to myself!"
     }, {
         title: "Feelings",
-        author: "Clare Verbeek, Thembani Dladla, Zanele Buthelezi",
+        author: "Clare Verbeek, Thembani Dladla",
         cover: "feelings.jpg",
         stars: 1,
         content: "My heart feels a lot of things.\n\nI feel happy when my granny tells us stories in the evening.\n\nI feel silly when I play with my friend.\n\nI feel bad when my dad says he does not have money.\n\nI feel loved when my mom gives me a hug."
