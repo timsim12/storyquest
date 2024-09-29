@@ -15,6 +15,8 @@ function BookView({ title, author, cover, content }) {
     const [selectedWord, setSelectedWord] = useState(null);
     const [wordDefinition, setWordDefinition] = useState(null);
     const [definitionPosition, setDefinitionPosition] = useState({ x: 0, y: 0 }); // Position for floating definition box
+    const [finishedReadingClicked, setFinishedReadingClicked] = useState(false); // Track if the button has been clicked
+
     const containerRef = useRef(null);
 
     // Function to generate the quiz based on the book content
@@ -27,6 +29,7 @@ function BookView({ title, author, cover, content }) {
         setErrorMessage(null);
         setCorrectAnswerIndex(null);
         setQuizLocked(false); // Unlock the quiz if a new quiz is generated
+        setFinishedReadingClicked(true); // Disable the "Finished Reading" button after clicking it
 
         try {
             const response = await callOpenAIAPI(
@@ -207,12 +210,16 @@ function BookView({ title, author, cover, content }) {
                     </div>
                 )}
 
-                <button
-                    onClick={generateQuiz}
-                    className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] ml-[10%] hover:bg-blue-600"
-                >
-                    Finished Reading
-                </button>
+                <div className="flex justify-center mt-[20px]">
+                    <button
+                        onClick={generateQuiz}
+                        className="bg-blue-500 text-white p-[10px] rounded-[14px] hover:bg-blue-600"
+                        disabled={finishedReadingClicked} // Disable after clicking once
+                    >
+                        Finished Reading
+                    </button>
+                </div>
+
                 <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
 
                 {loading && <p>Loading quiz...</p>}
@@ -249,6 +256,13 @@ function BookView({ title, author, cover, content }) {
                         {resultMessage && (
                             <div className="mt-[20px] text-[18px] font-bold">
                                 {resultMessage}
+                            </div>
+                        )}
+                        {quizLocked && (
+                            <div className="flex justify-center mt-[20px]">
+                                <Link to="/Books" className="bg-red-400 p-[10px] rounded-[14px] hover:bg-red-300 transition-all duration-200">
+                                    Return to Menu
+                                </Link>
                             </div>
                         )}
                     </div>
