@@ -18,7 +18,9 @@ function StarMeter({collected, total}) {
             </div>
             <p className="text-[30px]">&nbsp;/&nbsp;</p>
             <div className="flex items-center">
-                <p className="text-green-600 font-bold">{total}</p>
+                <p className={goalColor()}>
+                <p className="font-bold">{total}</p>
+                </p>
                 <StarImage />
             </div>
         </div>
