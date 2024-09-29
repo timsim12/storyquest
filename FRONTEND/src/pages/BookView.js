@@ -123,7 +123,7 @@ function BookView({ title, author, cover, content }) {
                 <p className="text-[20px] text-center mb-[30px]" onMouseUp={selectedText}>{addLineBreak(content)}</p>
                 <button
                     onClick={generateQuiz}
-                    className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] hover:bg-blue-600 ml-[10%]"
+                    className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] hover:bg-blue-600"
                 >
                     Finished Reading
                 </button>
