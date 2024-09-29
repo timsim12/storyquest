@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Header from "../components/Header";
 import { callOpenAIAPI } from '../api';
 import { Link } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 function BookView({ title, author, cover, content }) {
     const [quizData, setQuizData] = useState([]);
@@ -182,10 +184,38 @@ function BookView({ title, author, cover, content }) {
             );
         });
 
+        const auth = getAuth();
+        const user = auth.currentUser;
+        const db = getFirestore();
+        
+        const [quiz, setQuiz] = useState(null);
+    
+        useEffect(() => {
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    setQuiz(<>
+                            <button
+                                onClick={generateQuiz}
+                                className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] ml-[10%] hover:bg-blue-600"
+                            >
+                                Finished Reading
+                            </button>
+                            <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
+                        </>
+                    );
+                } else {
+                    setQuiz(null);
+                }
+            });
+    
+            return () => unsubscribe();
+        }, [auth]);
+    
+
     return (
         <div className="font-fredoka tracking-widest" ref={containerRef} onMouseUp={handleWordClick}>
             <Header />
-            <div className="bg-white mt-[20px] mx-[20%] rounded-[20px] p-[20px] font-fredoka tracking-widest">
+            <div className="bg-white mt-[20px] mx-[20%] rounded-[20px] p-[20px] font-fredoka tracking-widest mb-[20px]">
                 <Link to="/Books" className="bg-red-400 p-[14px] rounded-[14px] mt-[14px] hover:bg-red-300 transition-all duration-200">Back</Link>
                 <div className="capitalize ml-[20%]">
                     <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">{title}</h1>
@@ -221,6 +251,7 @@ function BookView({ title, author, cover, content }) {
                 </div>
 
                 <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
+                {quiz}
 
                 {loading && <p>Loading quiz...</p>}
 
