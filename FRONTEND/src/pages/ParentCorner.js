@@ -35,6 +35,10 @@ function ParentCorner() {
         setGoalState(false);
     }
 
+    const handleParentSettings = () => {
+        window.location = "/Parent-Settings";
+    };
+
     return (
         <div className="font-fredoka tracking-widest">
             <Header />
@@ -84,6 +88,9 @@ function ParentCorner() {
                         </Link>
                     )}
                 </div>
+                <button onClick={handleParentSettings} className="bg-[#eca059] p-[14px] rounded-[14px] hover:bg-[#c5924f] transition-all duration-200">
+                        Parent Settings
+                </button>
             </div>
         </div>
     )
