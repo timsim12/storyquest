@@ -4,8 +4,9 @@ import { callOpenAIAPI } from '../api';
 import { Link } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import StarImage from '../components/StarImage';
 
-function BookView({ title, author, cover, content }) {
+function BookView({ title, author, cover, content, stars }) {
     const [quizData, setQuizData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -223,7 +224,12 @@ function BookView({ title, author, cover, content }) {
                 <Link to="/Books" className="bg-red-400 p-[14px] rounded-[14px] mt-[14px] hover:bg-red-300 transition-all duration-200">Back</Link>
                 <div className="capitalize ml-[20%]">
                     <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">{title}</h1>
-                    <h1 className="mb-[24px]">{`by: ${author}`}</h1>
+                    <h1 className="mb-[12px]">{`by: ${author}`}</h1>
+                    <div className="flex mb-[24px]">
+                        {Array.from({ length: stars}, (_, index) => (
+                            <StarImage className="w-[8px]" />
+                        ))}
+                    </div>
                 </div>
                 <img src={`/covers/${cover}`} alt={title} className="rounded-[20px] w-[60%] max-w-[400px] mx-auto mb-[24px] border-8 border-yellow-500"/>                
                 <p className="text-[20px] text-center mb-[30px]">{addLineBreak(content)}</p>

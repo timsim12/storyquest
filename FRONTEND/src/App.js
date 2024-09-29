@@ -25,7 +25,7 @@ function App() {
                     <Route path="Books" element={<Home />}></Route>
                     <Route path="ParentCorner" element={<ParentCorner/>}></Route>
                     {books.map((book, idx) => 
-                        <Route path={`/books/${removeSpaces(book.title)}`} element={<BookView title={book.title} author={book.author} cover={book.cover} content={book.content} />}></Route>
+                        <Route path={`/books/${removeSpaces(book.title)}`} element={<BookView title={book.title} author={book.author} cover={book.cover} content={book.content} stars={book.stars} />}></Route>
                     )}
                     <Route path="Parent-Corner" element={<ParentCorner />}></Route>
                     <Route path="Parent-Settings" element={<ParentSettings />}></Route>
