@@ -24,6 +24,8 @@ function BookView({ title, author, cover, content, stars }) {
 
     // Function to generate the quiz based on the book content
     const generateQuiz = async () => {
+        if (finishedReadingClicked) return; // Prevent multiple clicks
+        setFinishedReadingClicked(true); // Disable the "Finished Reading" button after clicking it
         setLoading(true);
         setQuizData([]);
         setSelectedAnswer(null);
@@ -32,14 +34,16 @@ function BookView({ title, author, cover, content, stars }) {
         setErrorMessage(null);
         setCorrectAnswerIndex(null);
         setQuizLocked(false); // Unlock the quiz if a new quiz is generated
-        setFinishedReadingClicked(true); // Disable the "Finished Reading" button after clicking it
 
         try {
             const response = await callOpenAIAPI(
-                `Please provide three summary options for the following text, labeled A, B, and C. Make sure one of them is the correct summary, and clearly label it as "(best summary)". The other two summaries should be incorrect and introduce elements or characters that were not part of the story. Each summary should be a maximum of 1-2 sentences or 15 words. 
-                Important: Only one summary should be true and clearly marked as "(best summary)". The other two must be inaccurate.
-                The summaries should be easy to understand and suitable for preschool to 1st-grade children. The text is: "${content}".`
+                `You are generating a reading quiz. Provide only three summary options for the following story. Label each summary as A, B, or C. Make sure one of them is the correct summary, clearly labeled as "(best summary)". The other two summaries should be incorrect and introduce elements or characters that were not part of the story. Each summary should be concise, a maximum of 1-2 sentences or 15 words.
+            
+            Important: Ensure that only the three labeled summaries are included in the response without any additional text, instructions, or numbers.
+            
+            The summaries should be easy to understand and suitable for preschool to 1st-grade children. The text is: "${content}".`
             );
+            
             const { content: quizContent } = response.choices[0].message;
 
             // Extract and clean up the quiz choices
@@ -185,37 +189,38 @@ function BookView({ title, author, cover, content, stars }) {
             );
         });
 
-        const auth = getAuth();
-        const user = auth.currentUser;
-        const db = getFirestore();
-        
-        const [quiz, setQuiz] = useState(null);
-    
-        useEffect(() => {
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    setQuiz(<>
-                            <div className="flex justify-center mt-[20px]">
-                                <button
-                                    onClick={generateQuiz}
-                                    className="bg-blue-500 text-white p-[10px] rounded-[14px] hover:bg-blue-600"
-                                    disabled={finishedReadingClicked} // Disable after clicking once
-                                >
-                                    Finished Reading
-                                </button>
-                            </div>
+    const auth = getAuth();
+    const db = getFirestore();
 
-                            <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
-                        </>
-                    );
-                } else {
-                    setQuiz(null);
-                }
-            });
-    
-            return () => unsubscribe();
-        }, [auth]);
-    
+    const [quiz, setQuiz] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setQuiz(
+                    <>
+                        <div className="flex justify-center mt-[20px]">
+                            <button
+                                onClick={generateQuiz}
+                                className={`bg-blue-500 text-white p-[10px] rounded-[14px] ${
+                                    finishedReadingClicked ? 'cursor-not-allowed opacity-50' : 'hover:bg-blue-600'
+                                }`}
+                                disabled={finishedReadingClicked} // Disable after clicking once
+                            >
+                                Finished Reading
+                            </button>
+                        </div>
+
+                        <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
+                    </>
+                );
+            } else {
+                setQuiz(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [auth, finishedReadingClicked]);
 
     return (
         <div className="font-fredoka tracking-widest" ref={containerRef} onMouseUp={handleWordClick}>
@@ -226,8 +231,8 @@ function BookView({ title, author, cover, content, stars }) {
                     <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">{title}</h1>
                     <h1 className="mb-[12px]">{`by: ${author}`}</h1>
                     <div className="flex mb-[24px]">
-                        {Array.from({ length: stars}, (_, index) => (
-                            <StarImage className="w-[8px]" />
+                        {Array.from({ length: stars }, (_, index) => (
+                            <StarImage key={index} className="w-[8px]" />
                         ))}
                     </div>
                 </div>
