@@ -19,9 +19,9 @@ function ParentCorner() {
                     <Link to={`../books/${removeSpaces(book.title)}`}>
                         <div className="capitalize transition-all duration-200 text-center p-[20px] ">
                             <div className="flex">
-                                <img src={`/covers/${book.cover}`} alt={book.title} className="rounded-[20px] mx-auto mb-[12px] max-w-[200px]"/>
-                                <div className="text-left">
-                                    <h3 className="text-[20px] font-bold">{book.title}</h3>
+                                <img src={`/covers/${book.cover}`} alt={book.title} className="rounded-[20px] mb-[12px] max-w-[200px]"/>
+                                <div className="flex-1 text-left ml-[20px]">
+                                    <h3 className="text-[20px] font-bold mb-[20px]">{book.title}</h3>
                                     <h1>{`by: ${book.author}`}</h1>
                                 </div>
                             </div>
