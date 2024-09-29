@@ -10,13 +10,13 @@ function StarGoals() {
                     <p className="font-semibold text-[#5087D0] mb-[8px]">5 pieces of candy</p>
                     <p>!</p>
                 </div>
-                <div className="flex bg-yellow-400 rounded-[20px] p-[8px]">
-                    <div className="flex items-center">
+                <div className="grid grid-cols-fit text-center bg-yellow-400 rounded-[20px] p-[8px]">
+                    <div className="flex items-center mx-auto">
                         <p>Total </p>
                         <StarImage />
                         <p>: 5</p>
                     </div>
-                    <div className="flex items-center ml-auto">
+                    <div className="flex items-center mx-auto">
                         <p>Current Goal:&nbsp;</p>
                         <div className="flex items-center">
                             <p className="text-red-700 font-bold">5</p>
