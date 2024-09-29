@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from "../components/Header";
 import { callOpenAIAPI } from '../api';
+import { Link } from 'react-router-dom';
 
 function BookView({ title, author, cover, content }) {
     const [quizData, setQuizData] = useState([]);
@@ -92,25 +93,41 @@ function BookView({ title, author, cover, content }) {
         }
     };
 
+    const selectedText = () => {
+        let selection = window.getSelection().toString();
+        if (selection != "") {
+            console.log(selection);
+        }
+    }
+
+    const addLineBreak = (string) =>
+        string.split('\n').map((subStr) => {
+          return (
+            <>
+              {subStr}
+              <br />
+            </>
+          );
+        });
+
     return (
         <div className="font-fredoka tracking-widest">
             <Header />
-            <div className="bg-white mt-[20px] mx-[10%] rounded-[20px] p-[20px] px-[60px]">
-                <div className="capitalize">
+            <div className="bg-white mt-[20px] mx-[20%] rounded-[20px] p-[20px] font-fredoka tracking-widest">
+                <Link to="/Books" className="bg-red-400 p-[14px] rounded-[14px] mt-[14px] hover:bg-red-300 transition-all duration-200">Back</Link>
+                <div className="capitalize ml-[20%]">
                     <h1 className="text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">{title}</h1>
                     <h1 className="mb-[24px]">{`by: ${author}`}</h1>
                 </div>
-                <img src={`/covers/${cover}`} alt={title} className="rounded-[20px] w-[90%] mx-auto mb-[24px]" />
-                <div className="text-[20px]">
-                    {content}
-                </div>
+                <img src={`/covers/${cover}`} alt={title} className="rounded-[20px] w-[60%] max-w-[400px] mx-auto mb-[24px] border-8 border-yellow-500"/>                
+                <p className="text-[20px] text-center mb-[30px]" onMouseUp={selectedText}>{addLineBreak(content)}</p>
                 <button
                     onClick={generateQuiz}
-                    className="bg-blue-500 text-white p-[10px] mt-[10px] rounded hover:bg-blue-600"
+                    className="bg-blue-500 text-white p-[10px] mt-[6px] rounded-[14px] hover:bg-blue-600 ml-[10%]"
                 >
                     Finished Reading
                 </button>
-                <h1 className="mt-[48px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg">Reading Quiz</h1>
+                <h1 className="mt-[40px] mb-[24px] text-[40px] font-bold text-left text-[#5087D0] drop-shadow-lg ml-[10%]">Reading Quiz</h1>
 
                 {loading && <p>Loading quiz...</p>}
 
