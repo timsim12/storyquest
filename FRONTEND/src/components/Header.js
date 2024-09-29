@@ -35,7 +35,7 @@ function Header() {
     }, []);
 
     const handleProfile = () => {
-        window.location = "/ParentCorner";
+        window.location = "/Parent-Corner";
     };
 
 
