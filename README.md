@@ -1,3 +1,6 @@
+## Link to Devpost
+https://devpost.com/software/storyquest-8ojpv9
+
 ## Inspiration
 Learning isn’t easy, and with the increasing distractions of online games and videos, it can be difficult to ensure that kids are learning the education that they need. Some common problems that we noted were that it is easy for children to become distracted when they see learning as “boring.” In addition, it is also often difficult for parents to be involved in children’s independent learning progress. Our app tackles both of these problems through incentivizing learning through a reward system, while also giving parents access to their children’s progress and goals.
 
